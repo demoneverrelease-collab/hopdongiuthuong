@@ -330,20 +330,57 @@ const noTexts=[
 
 yes.onclick=function(){
 
-document.getElementById("music").play()
+const music=document.getElementById("music")
 
-const yesMessage=" Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! I love youuuu ❤️❤️❤️!!!"
+/* bắt đầu từ giây 7 */
+
+music.currentTime=7
+
+/* volume ban đầu */
+
+music.volume=0
+
+music.play()
+
+/* fade in */
+
+let vol=0
+
+let fade=setInterval(()=>{
+
+if(vol<1){
+
+vol+=0.03
+music.volume=vol
+
+}else{
+
+clearInterval(fade)
+
+}
+
+},120)
+
+/* message */
+
+const yesMessage=" Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai để dựa, một người đồng hành , một người bên cạnh cậu , quan tâm cậu để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!! I luv youuuu ❤️❤️❤️!!!"
 
 text.innerHTML=""
 
 let j=0
 
 function typingYes(){
+
 if(j<yesMessage.length){
+
 text.innerHTML+=yesMessage.charAt(j)
+
 j++
+
 setTimeout(typingYes,120)
+
 }
+
 }
 
 typingYes()
@@ -352,7 +389,6 @@ yes.style.display="none"
 no.style.display="none"
 
 }
-
 /* NO CLICK */
 
 no.onclick=function(){
@@ -425,3 +461,4 @@ yes.style.setProperty("--s",size)
 
 </body>
 </html>
+
