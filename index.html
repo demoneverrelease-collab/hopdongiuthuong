@@ -123,7 +123,9 @@ const noTexts = [
 
 yes.onclick=function(){
 
-document.getElementById("music").play()
+const music = document.getElementById("music")
+music.currentTime = 7
+music.play()
 
 document.getElementById("text").innerText =
 "Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai, một người đồng hành , một người bên cạnh cậu , quan tâm cậu  để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!! i luv youuuu❤️❤️❤️!!!"
@@ -242,6 +244,7 @@ yes.style.transform="scale("+size+")"
 
 </body>
 </html>
+
 
 
 
