@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Dành cho cậu ❤️</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-family:Arial;
+background:linear-gradient(135deg,#ffd6e0,#ffe9f0,#ffc2d1);
+overflow:hidden;
+text-align:center;
+transition:0.2s;
+}
+
+h1{
+font-size:30px;
+color:#ff2e63;
+}
+
+.buttons{
+display:flex;
+gap:15px;
+margin-top:20px;
+}
+
+button{
+padding:12px 25px;
+font-size:20px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+#yes{
+background:#ff4d6d;
+color:white;
+transition:0.3s;
+}
+
+#no{
+background:#d9d9d9;
+}
+
+.heart{
+position:fixed;
+top:100vh;
+animation:bay 4s linear;
+pointer-events:none;
+}
+
+@keyframes bay{
+0%{transform:translateY(0) scale(1);opacity:1;}
+100%{transform:translateY(-110vh) scale(1.5);opacity:0;}
+}
+
+@keyframes shake{
+0%{transform:translate(0)}
+25%{transform:translate(-10px)}
+50%{transform:translate(10px)}
+75%{transform:translate(-10px)}
+100%{transform:translate(0)}
+}
+
+.shake{
+animation:shake 0.5s;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1 id="text">Cậu có muốn làm người yêu tớ không? 🥺</h1>
+
+<div class="buttons">
+<button id="yes">Yes</button>
+<button id="no">No</button>
+</div>
+
+<script>
+
+let size = 1
+let noCount = 0
+
+const yes = document.getElementById("yes")
+const no = document.getElementById("no")
+
+const noTexts = [
+"Really?",
+"Suy nghĩ lại đi mà",
+"Cậu thật sự muốn thế à",
+"Vẫn cứng đầu hả",
+"Đừng bấm nữa mà 😭",
+"Cho tớ cơ hội đi 🥺"
+]
+
+yes.onclick = function(){
+
+document.getElementById("text").innerText =
+"cảm ơn vì cậu đã chọn yes, tớ sẽ trở thành một anh người yêu tinh tế, đẹp trai, thông minh và hoàn hảo để cậu có thể yêu thương và dựa dẫm, từ giờ cậu sẽ là em bé của tớ hihi, i luv uuuuu ❤️❤️❤️"
+
+yes.style.display="none"
+no.style.display="none"
+
+setInterval(function(){
+
+const heart=document.createElement("div")
+heart.className="heart"
+heart.innerHTML="❤️"
+
+heart.style.left=Math.random()*100+"vw"
+heart.style.fontSize=(Math.random()*30+20)+"px"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>{heart.remove()},4000)
+
+},150)
+
+}
+
+no.onclick=function(){
+
+noCount++
+
+if(noCount>=5){
+
+document.body.classList.add("shake")
+
+setTimeout(()=>{
+document.body.classList.remove("shake")
+},500)
+
+}
+
+if(noCount>=5){
+let i=Math.min(noCount-5,noTexts.length-1)
+no.innerText=noTexts[i]
+}
+
+let x=Math.random()*(window.innerWidth-100)
+let y=Math.random()*(window.innerHeight-50)
+
+no.style.position="absolute"
+no.style.left=x+"px"
+no.style.top=y+"px"
+
+size+=0.25
+yes.style.transform="scale("+size+")"
+
+}
+
+</script>
+
+</body>
+</html>
