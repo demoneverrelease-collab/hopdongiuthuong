@@ -9,6 +9,36 @@
 <style>
 
 body{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+button{
+padding:14px 28px;
+}
+
+/* hiệu ứng chữ chạy */
+.slideText{
+position:relative;
+animation:slideText 2s ease forwards;
+}
+
+@keyframes slideText{
+0%{
+transform:translateX(100vw);
+opacity:0;
+}
+100%{
+transform:translateX(0);
+opacity:1;
+}
+}
+
+</style>
+
+body{
 margin:0;
 height:100vh;
 display:flex;
@@ -28,6 +58,11 @@ color:#ff2e63;
 max-width:500px;
 position:relative;
 z-index:2;
+
+background:white;
+padding:12px 22px;
+border-radius:14px;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
 }
 
 .buttons{
@@ -36,6 +71,7 @@ gap:20px;
 margin-top:30px;
 position:relative;
 z-index:2;
+justify-content:center;
 }
 
 button{
@@ -122,7 +158,7 @@ const noTexts = [
 
 /* YES */
 
-yes.onclick = function(){
+yyes.onclick = function(){
 
 const music = document.getElementById("music")
 music.currentTime = 7
@@ -139,53 +175,46 @@ let fade = setInterval(function(){
     }
 },200)
 
-document.getElementById("text").innerText =
+const text = document.getElementById("text")
+
+text.innerText =
 "Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai, một người đồng hành , một người bên cạnh cậu , quan tâm cậu  để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!! i luv youuuu❤️❤️❤️!!!"
+
+text.classList.add("slideText")
 
 yes.style.display="none"
 no.style.display="none"
 
-/* confetti nổ */
 
-for(let i=0;i<120;i++){
+/* tim bung */
 
-const conf=document.createElement("div")
+for(let i=0;i<60;i++){
 
-conf.innerHTML="💖"
-conf.style.position="fixed"
-conf.style.left=Math.random()*100+"vw"
-conf.style.top=Math.random()*100+"vh"
-conf.style.fontSize=(Math.random()*30+20)+"px"
+const heart = document.createElement("div")
 
-conf.style.animation="bay 4s linear"
+heart.innerHTML="💖"
+heart.style.position="fixed"
+heart.style.left=Math.random()*100+"vw"
 
-document.body.appendChild(conf)
-
-setTimeout(()=>{
-conf.remove()
-},4000)
-
+if(Math.random()<0.5){
+heart.style.top="-20px"
+}else{
+heart.style.bottom="-20px"
 }
 
-/* mưa tim */
-
-setInterval(function(){
-
-const heart=document.createElement("div")
-
-heart.className="heart"
-heart.innerHTML="❤️"
-
-heart.style.left=Math.random()*100+"vw"
-heart.style.fontSize=(Math.random()*40+20)+"px"
+heart.style.fontSize=(Math.random()*30+20)+"px"
+heart.style.animation="bay 4s linear"
 
 document.body.appendChild(heart)
 
 setTimeout(()=>{
 heart.remove()
-},5000)
+},4000)
 
-},80)
+}
+
+}
+
 
 }
 
@@ -256,6 +285,7 @@ yes.style.transform="scale("+size+")"
 
 </body>
 </html>
+
 
 
 
