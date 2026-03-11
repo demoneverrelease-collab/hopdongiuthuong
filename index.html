@@ -5,7 +5,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dành cho cậu ❤️</title>
+  
+.shake{
+animation:shake 0.5s;
+}
 
+/* hiệu ứng chữ chạy */
+.slideText{
+position:relative;
+animation:slideText 1.2s ease forwards;
+}
+
+@keyframes slideText{
+0%{
+transform:translateX(100vw);
+opacity:0;
+}
+100%{
+transform:translateX(0);
+opacity:1;
+}
+}
+  
 <style>
 
 body{
@@ -285,6 +306,7 @@ yes.style.transform="scale("+size+")"
 
 </body>
 </html>
+
 
 
 
