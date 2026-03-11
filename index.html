@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="vi">
 
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dành cho cậu ❤️</title>
 
 <style>
+
+*{
+box-sizing:border-box;
+}
 
 body{
 margin:0;
@@ -15,73 +19,70 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-font-family:Arial;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
 background:linear-gradient(135deg,#ffd6e8,#ffe9f3,#ffc2d1);
 overflow:hidden;
 text-align:center;
 padding:20px;
 }
 
-/* chữ */
+/* TEXT */
 
 h1{
-font-size:clamp(22px,5vw,32px);
+font-size:clamp(22px,6vw,34px);
 color:#ff2e63;
-max-width:500px;
-position:relative;
-z-index:2;
+max-width:420px;
 background:white;
-padding:12px 22px;
-border-radius:14px;
-box-shadow:0 8px 20px rgba(0,0,0,0.15);
+padding:16px 24px;
+border-radius:16px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+z-index:2;
 }
 
-/* buttons */
+/* BUTTONS */
 
 .buttons{
 display:flex;
 gap:20px;
-margin-top:30px;
-position:relative;
+margin-top:28px;
 z-index:2;
-justify-content:center;
 }
 
 button{
-padding:14px 28px;
-font-size:clamp(16px,4vw,22px);
+padding:14px 26px;
+font-size:clamp(16px,4vw,20px);
 border:none;
 border-radius:14px;
 cursor:pointer;
-box-shadow:0 6px 15px rgba(0,0,0,0.15);
+box-shadow:0 6px 18px rgba(0,0,0,0.15);
 transition:0.3s;
 }
 
 #yes{
 background:#ff4d6d;
 color:white;
+animation:yesGlow 2s infinite alternate;
 }
 
 #no{
 background:#d9d9d9;
 }
 
-/* tim */
+/* YES GLOW */
 
-@keyframes bay{
+@keyframes yesGlow{
+0%{box-shadow:0 0 10px #ff4d6d;}
+100%{box-shadow:0 0 25px #ff4d6d;}
+}
+
+/* HEART FLY */
+
+@keyframes heartFly{
 0%{transform:translateY(0) scale(1);opacity:1;}
-100%{transform:translateY(-120vh) scale(1.6);opacity:0;}
+100%{transform:translateY(-130vh) scale(1.8);opacity:0;}
 }
 
-.heart{
-position:fixed;
-top:100vh;
-animation:bay 5s linear;
-pointer-events:none;
-z-index:0;
-}
-
-/* rung */
+/* SHAKE */
 
 @keyframes shake{
 0%{transform:translate(0)}
@@ -95,134 +96,218 @@ z-index:0;
 animation:shake 0.5s;
 }
 
-/* chữ chạy */
+/* STARS */
 
-.slideText{
-position:relative;
-animation:slideText 1.2s ease forwards;
+.star{
+position:fixed;
+animation:twinkle 2s infinite alternate;
+pointer-events:none;
 }
 
-@keyframes slideText{
-0%{
-transform:translateX(100vw);
-opacity:0;
+@keyframes twinkle{
+0%{opacity:0.3;transform:scale(0.8);}
+100%{opacity:1;transform:scale(1.2);}
 }
-100%{
-transform:translateX(0);
-opacity:1;
+
+/* FLOWERS */
+
+.flower{
+position:fixed;
+top:-20px;
+animation:fall linear forwards;
+pointer-events:none;
 }
+
+@keyframes fall{
+0%{transform:translateY(-20px);}
+100%{transform:translateY(120vh);}
+}
+
+/* POPUP */
+
+.popup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:30px;
+border-radius:18px;
+box-shadow:0 15px 40px rgba(0,0,0,0.25);
+font-size:20px;
+z-index:10;
+display:none;
+}
+
+@media(max-width:500px){
+
+h1{
+font-size:22px;
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
 
-<h1 id="text">Miee à cậu đồng ý làm người yêu tớ nhé ?</h1>
+<h1 id="text"></h1>
 
 <div class="buttons">
 <button id="yes">Yes</button>
 <button id="no">No</button>
 </div>
 
+<div class="popup" id="popup">
+💌 Tớ thích cậu lâu rồi đó ❤️
+</div>
+
 <audio id="music" src="love.mp3"></audio>
 
 <script>
 
-let size = 1
-let noCount = 0
+/* TYPING */
 
-const yes = document.getElementById("yes")
-const no = document.getElementById("no")
+const message="Miee à cậu đồng ý làm người yêu tớ nhé ?"
 
-const noTexts = [
+let i=0
+const text=document.getElementById("text")
+
+function typing(){
+
+if(i<message.length){
+text.innerHTML+=message.charAt(i)
+i++
+setTimeout(typing,50)
+}
+
+}
+
+typing()
+
+/* STARS */
+
+const icons=["⭐","✨","💫","🌟","🧸","💗","🌸"]
+
+for(let i=0;i<30;i++){
+
+const star=document.createElement("div")
+
+star.innerHTML=icons[Math.floor(Math.random()*icons.length)]
+
+star.className="star"
+
+star.style.left=Math.random()*100+"vw"
+star.style.top=Math.random()*100+"vh"
+star.style.fontSize=(Math.random()*20+16)+"px"
+
+document.body.appendChild(star)
+
+}
+
+/* FLOWERS */
+
+setInterval(()=>{
+
+const flower=document.createElement("div")
+
+flower.innerHTML="🌸"
+
+flower.className="flower"
+
+flower.style.left=Math.random()*100+"vw"
+
+flower.style.fontSize=(Math.random()*16+14)+"px"
+
+flower.style.animationDuration=(Math.random()*5+5)+"s"
+
+document.body.appendChild(flower)
+
+setTimeout(()=>flower.remove(),9000)
+
+},800)
+
+/* BUTTON LOGIC */
+
+let size=1
+let noCount=0
+
+const yes=document.getElementById("yes")
+const no=document.getElementById("no")
+
+const noTexts=[
 "Really?",
 "Suy nghĩ kĩ lại đi mà",
-"nèeeeeeeee",
+"nèeeeeee",
 "Cứng đầu hả",
 "Trời oii",
 "Pleaseeeee",
 "Đừng bấm No nữaaaaa",
 "Thiệt luôn hả",
-"Cơ hội cuối đáy nhesseeeeeee!"
+"Cơ hội cuối đó!"
 ]
 
-/* YES */
+yes.onclick=function(){
 
-yes.onclick = function(){
+document.getElementById("popup").style.display="block"
 
-const music = document.getElementById("music")
+const music=document.getElementById("music")
 
-music.currentTime = 7
-music.volume = 0
+music.currentTime=7
+music.volume=0
 music.play()
 
-let vol = 0
+let vol=0
 
-let fade = setInterval(function(){
+let fade=setInterval(()=>{
 
-if(vol < 1){
-vol += 0.05
-music.volume = vol
+if(vol<1){
+vol+=0.05
+music.volume=vol
 }else{
 clearInterval(fade)
 }
 
 },200)
 
-const text = document.getElementById("text")
-
-text.innerText =
-"Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai, một người đồng hành , một người bên cạnh cậu , quan tâm cậu để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!! I luv youuuu ❤️❤️❤️!!!"
-
-text.classList.add("slideText")
+text.innerText="Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai, một người đồng hành , một người bên cạnh cậu , quan tâm cậu để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!! I luv youuuu ❤️❤️❤️!!!"
 
 yes.style.display="none"
 no.style.display="none"
 
-/* tim bung */
+/* HEARTS */
 
-for(let i=0;i<60;i++){
+for(let i=0;i<100;i++){
 
-const heart = document.createElement("div")
+const heart=document.createElement("div")
 
 heart.innerHTML="💖"
+
 heart.style.position="fixed"
 heart.style.left=Math.random()*100+"vw"
+heart.style.top="100vh"
 
-if(Math.random()<0.5){
-heart.style.top="-20px"
-}else{
-heart.style.bottom="-20px"
-}
-
-heart.style.fontSize=(Math.random()*30+20)+"px"
-heart.style.animation="bay 4s linear"
+heart.style.fontSize=(Math.random()*30+18)+"px"
+heart.style.animation="heartFly 4s linear"
 
 document.body.appendChild(heart)
 
-setTimeout(()=>{
-heart.remove()
-},4000)
+setTimeout(()=>heart.remove(),4000)
 
 }
 
 }
-
-/* NO */
 
 no.onclick=function(){
 
 noCount++
 
-/* đổi text */
-
 if(noCount>=3){
-let i=Math.min(noCount-3,noTexts.length-1)
-no.innerText=noTexts[i]
+let index=Math.min(noCount-3,noTexts.length-1)
+no.innerText=noTexts[index]
 }
-
-/* rung */
 
 if(noCount>=5){
 
@@ -233,8 +318,6 @@ document.body.classList.remove("shake")
 },500)
 
 }
-
-/* nhỏ dần */
 
 if(noCount>=7){
 
@@ -248,25 +331,19 @@ no.style.transform="scale("+scale+")"
 
 }
 
-/* biến mất */
-
 if(noCount>=11){
 no.style.display="none"
 }
 
-/* chạy */
+const w=no.offsetWidth
+const h=no.offsetHeight
 
-const buttonWidth = no.offsetWidth
-const buttonHeight = no.offsetHeight
-
-let x = Math.random() * (window.innerWidth - buttonWidth)
-let y = Math.random() * (window.innerHeight - buttonHeight)
+let x=Math.random()*(window.innerWidth-w)
+let y=Math.random()*(window.innerHeight-h)
 
 no.style.position="fixed"
 no.style.left=x+"px"
 no.style.top=y+"px"
-
-/* yes to dần */
 
 size+=0.25
 yes.style.transform="scale("+size+")"
