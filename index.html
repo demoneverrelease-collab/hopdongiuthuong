@@ -8,7 +8,7 @@
 
 <style>
 
-*{box-sizing:border-box;}
+*{box-sizing:border-box}
 
 body{
 margin:0;
@@ -18,10 +18,17 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-background:linear-gradient(135deg,#ffd6e8,#ffe9f3,#ffc2d1);
 overflow:hidden;
 text-align:center;
 padding:20px;
+
+/* romantic gradient */
+
+background:
+radial-gradient(circle at 20% 20%, rgba(255,180,200,0.5), transparent 40%),
+radial-gradient(circle at 80% 30%, rgba(255,150,200,0.4), transparent 40%),
+radial-gradient(circle at 50% 80%, rgba(255,200,220,0.5), transparent 40%),
+linear-gradient(135deg,#ffd6e8,#ffe9f3,#ffc2d1);
 }
 
 /* TEXT */
@@ -56,75 +63,63 @@ box-shadow:0 6px 18px rgba(0,0,0,0.15);
 transition:0.3s;
 }
 
+/* YES */
+
 #yes{
 background:#ff4d6d;
 color:white;
 animation:yesGlow 2s infinite alternate;
+--s:1;
+transform:scale(var(--s));
 }
+
+/* NO */
 
 #no{
 background:#d9d9d9;
 }
 
+/* YES GLOW */
+
 @keyframes yesGlow{
-0%{box-shadow:0 0 10px #ff4d6d;}
-100%{box-shadow:0 0 25px #ff4d6d;}
+0%{box-shadow:0 0 10px #ff4d6d}
+100%{box-shadow:0 0 25px #ff4d6d}
 }
 
 /* HEARTBEAT */
 
 @keyframes heartbeat{
-0%{transform:scale(1);}
-25%{transform:scale(1.1);}
-40%{transform:scale(0.95);}
-60%{transform:scale(1.12);}
-100%{transform:scale(1);}
+0%{transform:scale(var(--s))}
+25%{transform:scale(calc(var(--s)*1.15))}
+40%{transform:scale(calc(var(--s)*0.95))}
+60%{transform:scale(calc(var(--s)*1.18))}
+100%{transform:scale(var(--s))}
 }
 
 .heartbeat{
-animation:heartbeat 0.8s infinite;
+animation:heartbeat 0.9s infinite;
 }
 
 /* HEART RISE */
 
 @keyframes heartRise{
-0%{transform:translateY(40vh) scale(0.8);opacity:0;}
-20%{opacity:1;}
-100%{transform:translateY(-80vh) scale(1.2);opacity:0;}
+0%{transform:translateY(40vh) scale(0.8);opacity:0}
+20%{opacity:1}
+100%{transform:translateY(-80vh) scale(1.3);opacity:0}
 }
 
-/* HEART FLOAT */
-
-@keyframes heartFloat{
-0%{opacity:0.3;transform:scale(0.9);}
-50%{opacity:1;transform:scale(1.1);}
-100%{opacity:0.3;transform:scale(0.9);}
-}
-
-/* SHAKE */
-
-@keyframes shake{
-0%{transform:translate(0)}
-25%{transform:translate(-8px)}
-50%{transform:translate(8px)}
-75%{transform:translate(-8px)}
-100%{transform:translate(0)}
-}
-
-.shake{animation:shake 0.5s;}
-
-/* STARS */
+/* STAR */
 
 .star{
 position:fixed;
-animation:twinkle 2s infinite alternate;
 pointer-events:none;
+animation:twinkle 2s infinite alternate;
 transition:transform 0.2s linear;
 }
 
 @keyframes twinkle{
-0%{opacity:0.3;transform:scale(0.8);}
-100%{opacity:1;transform:scale(1.2);}
+0%{opacity:0.4;transform:scale(0.8)}
+100%{opacity:1;transform:scale(1.2)}
 }
 
 /* FLOWERS */
@@ -137,8 +132,22 @@ pointer-events:none;
 }
 
 @keyframes fall{
-0%{transform:translateY(-20px);}
-100%{transform:translateY(120vh);}
+0%{transform:translateY(-20px)}
+100%{transform:translateY(120vh)}
+}
+
+/* SHAKE */
+
+@keyframes shake{
+0%{transform:translate(0)}
+25%{transform:translate(-8px)}
+50%{transform:translate(8px)}
+75%{transform:translate(-8px)}
+100%{transform:translate(0)}
+}
+
+.shake{
+animation:shake 0.5s;
 }
 
 /* POPUP */
@@ -155,13 +164,13 @@ box-shadow:0 10px 30px rgba(0,0,0,0.25);
 font-size:18px;
 z-index:10;
 display:none;
-animation:popupShow 0.4s ease;
 pointer-events:none;
+animation:popupShow 0.4s ease;
 }
 
 @keyframes popupShow{
-0%{opacity:0;transform:translate(-50%,20px);}
-100%{opacity:1;transform:translate(-50%,0);}
+0%{opacity:0;transform:translate(-50%,20px)}
+100%{opacity:1;transform:translate(-50%,0)}
 }
 
 </style>
@@ -185,10 +194,9 @@ pointer-events:none;
 
 <script>
 
-/* TYPING QUESTION */
+/* QUESTION */
 
 const message="Miee à cậu đồng ý làm người yêu tớ nhé ?"
-
 let i=0
 const text=document.getElementById("text")
 
@@ -203,13 +211,12 @@ typing()
 
 /* STARS */
 
-const icons=["⭐","✨","💫","🌟","🧸","💗","🌸"]
+const icons=["⭐","✨","💫","🌟","💗"]
 let stars=[]
 
 for(let i=0;i<35;i++){
 
 const star=document.createElement("div")
-
 star.innerHTML=icons[Math.floor(Math.random()*icons.length)]
 star.className="star"
 
@@ -218,9 +225,7 @@ star.style.top=Math.random()*100+"vh"
 star.style.fontSize=(Math.random()*20+16)+"px"
 
 document.body.appendChild(star)
-
 stars.push(star)
-
 }
 
 /* PARALLAX */
@@ -238,10 +243,10 @@ star.style.transform=`translate(${x}px,${y}px)`
 
 document.addEventListener("touchmove",(e)=>{
 
-let touch=e.touches[0]
+let t=e.touches[0]
 
-let x=(touch.clientX/window.innerWidth-0.5)*20
-let y=(touch.clientY/window.innerHeight-0.5)*20
+let x=(t.clientX/window.innerWidth-0.5)*20
+let y=(t.clientY/window.innerHeight-0.5)*20
 
 stars.forEach(star=>{
 star.style.transform=`translate(${x}px,${y}px)`
@@ -268,6 +273,39 @@ setTimeout(()=>flower.remove(),9000)
 
 },800)
 
+/* HEART LOOP BACKGROUND */
+
+function heartLoop(){
+
+for(let i=0;i<20;i++){
+
+const heart=document.createElement("div")
+
+heart.innerHTML="💖"
+heart.style.position="fixed"
+heart.style.left=Math.random()*100+"vw"
+heart.style.bottom="-30px"
+
+heart.style.fontSize=(Math.random()*24+18)+"px"
+
+let duration=Math.random()*4+6
+
+heart.style.animation="heartRise "+duration+"s ease-out"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>{
+heart.remove()
+},duration*1000)
+
+}
+
+}
+
+setInterval(()=>{
+heartLoop()
+},3000)
+
 /* BUTTON LOGIC */
 
 let size=1
@@ -292,24 +330,9 @@ const noTexts=[
 
 yes.onclick=function(){
 
-const music=document.getElementById("music")
+document.getElementById("music").play()
 
-music.currentTime=7
-music.volume=0
-music.play()
-
-let vol=0
-
-let fade=setInterval(()=>{
-if(vol<1){
-vol+=0.05
-music.volume=vol
-}else{
-clearInterval(fade)
-}
-},200)
-
-const yesMessage=" Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai để dựa, một người đồng hành , một người bên cạnh cậu , quan tâm cậu để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!! I luv youuuu ❤️❤️❤️!!!"
+const yesMessage=" Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! I love youuuu ❤️❤️❤️!!!"
 
 text.innerHTML=""
 
@@ -336,8 +359,6 @@ no.onclick=function(){
 
 noCount++
 
-/* popup */
-
 if(noCount==5){
 
 let popup=document.getElementById("popup")
@@ -349,8 +370,6 @@ popup.style.display="none"
 },4000)
 
 }
-
-/* yes heartbeat */
 
 if(noCount>=6){
 yes.classList.add("heartbeat")
@@ -398,7 +417,7 @@ no.style.left=x+"px"
 no.style.top=y+"px"
 
 size+=0.25
-yes.style.transform="scale("+size+")"
+yes.style.setProperty("--s",size)
 
 }
 
