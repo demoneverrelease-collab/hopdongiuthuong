@@ -312,11 +312,15 @@ heart.style.left=Math.random()*100+"vw"
 heart.style.top=Math.random()*100+"vh"
 
 heart.style.fontSize=(Math.random()*30+18)+"px"
-heart.style.animation="heartFly 4s linear"
+
+let duration = Math.random()*4 + 6
+let delay = Math.random()*2
+
+heart.style.animation="heartFly "+duration+"s ease-out "+delay+"s"
 
 document.body.appendChild(heart)
 
-setTimeout(()=>heart.remove(),4000)
+setTimeout(()=>heart.remove(),10000)
 
 }
 
@@ -382,6 +386,7 @@ yes.style.transform="scale("+size+")"
 
 </body>
 </html>
+
 
 
 
