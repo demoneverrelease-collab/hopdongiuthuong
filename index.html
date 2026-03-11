@@ -278,7 +278,7 @@ clearInterval(fade)
 
 /* TYPING LOVE MESSAGE */
 
-const yesMessage="Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai để dựa, một người đồng hành , một người bên cạnh cậu , quan tâm cậu để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!!! I luv youuuu ❤️❤️❤️!!!"
+const yesMessage=" Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai để dựa, một người đồng hành , một người bên cạnh cậu , quan tâm cậu để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!!  I luv youuuu ❤️❤️❤️!!!"
 
 text.innerHTML=""
 
@@ -301,26 +301,41 @@ no.style.display="none"
 
 /* HEARTS */
 
-for(let i=0;i<100;i++){
+for(let i=0;i<120;i++){
 
 const heart=document.createElement("div")
 
 heart.innerHTML="💖"
 
 heart.style.position="fixed"
-heart.style.left=Math.random()*100+"vw"
-heart.style.top=Math.random()*100+"vh"
 
-heart.style.fontSize=(Math.random()*30+18)+"px"
+/* tim xuất phát từ nút YES */
 
-let duration = Math.random()*4 + 6
-let delay = Math.random()*2
+const rect = yes.getBoundingClientRect()
 
-heart.style.animation="heartFly "+duration+"s ease-out "+delay+"s"
+heart.style.left = rect.left + rect.width/2 + "px"
+heart.style.top = rect.top + rect.height/2 + "px"
+
+heart.style.fontSize=(Math.random()*28+18)+"px"
+
+/* hướng bay ngẫu nhiên */
+
+let x=(Math.random()-0.5)*600
+let y=(Math.random()-0.5)*600
+
+heart.style.transform="translate("+x+"px,"+y+"px)"
+
+heart.style.transition="transform 4s ease-out, opacity 4s"
 
 document.body.appendChild(heart)
 
-setTimeout(()=>heart.remove(),10000)
+setTimeout(()=>{
+heart.style.opacity=0
+},100)
+
+setTimeout(()=>{
+heart.remove()
+},4000)
 
 }
 
@@ -386,6 +401,7 @@ yes.style.transform="scale("+size+")"
 
 </body>
 </html>
+
 
 
 
