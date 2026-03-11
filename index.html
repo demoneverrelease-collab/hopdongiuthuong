@@ -1,50 +1,12 @@
 <!DOCTYPE html>
-
 <html lang="vi">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dành cho cậu ❤️</title>
-  
 
 <style>
-
-.shake{
-animation:shake 0.5s;
-}
-
-/* hiệu ứng chữ chạy */
-.slideText{
-position:relative;
-animation:slideText 1.2s ease forwards;
-}
-
-@keyframes slideText{
-0%{
-transform:translateX(100vw);
-opacity:0;
-}
-100%{
-transform:translateX(0);
-opacity:1;
-}
-}
-
-body{
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-}
-
-button{
-padding:14px 28px;
-}
-
-</style>
-
-
-</style>
 
 body{
 margin:0;
@@ -60,18 +22,21 @@ text-align:center;
 padding:20px;
 }
 
+/* chữ */
+
 h1{
 font-size:clamp(22px,5vw,32px);
 color:#ff2e63;
 max-width:500px;
 position:relative;
 z-index:2;
-
 background:white;
 padding:12px 22px;
 border-radius:14px;
 box-shadow:0 8px 20px rgba(0,0,0,0.15);
 }
+
+/* buttons */
 
 .buttons{
 display:flex;
@@ -101,6 +66,13 @@ color:white;
 background:#d9d9d9;
 }
 
+/* tim */
+
+@keyframes bay{
+0%{transform:translateY(0) scale(1);opacity:1;}
+100%{transform:translateY(-120vh) scale(1.6);opacity:0;}
+}
+
 .heart{
 position:fixed;
 top:100vh;
@@ -109,10 +81,7 @@ pointer-events:none;
 z-index:0;
 }
 
-@keyframes bay{
-0%{transform:translateY(0) scale(1);opacity:1;}
-100%{transform:translateY(-120vh) scale(1.6);opacity:0;}
-}
+/* rung */
 
 @keyframes shake{
 0%{transform:translate(0)}
@@ -126,8 +95,25 @@ z-index:0;
 animation:shake 0.5s;
 }
 
-</style>
+/* chữ chạy */
 
+.slideText{
+position:relative;
+animation:slideText 1.2s ease forwards;
+}
+
+@keyframes slideText{
+0%{
+transform:translateX(100vw);
+opacity:0;
+}
+100%{
+transform:translateX(0);
+opacity:1;
+}
+}
+
+</style>
 </head>
 
 <body>
@@ -140,7 +126,7 @@ animation:shake 0.5s;
 </div>
 
 <audio id="music" src="love.mp3"></audio>
-  
+
 <script>
 
 let size = 1
@@ -161,38 +147,38 @@ const noTexts = [
 "Cơ hội cuối đáy nhesseeeeeee!"
 ]
 
-
-
-
 /* YES */
 
-yyes.onclick = function(){
+yes.onclick = function(){
 
 const music = document.getElementById("music")
+
 music.currentTime = 7
 music.volume = 0
 music.play()
 
 let vol = 0
+
 let fade = setInterval(function(){
-    if(vol < 1){
-        vol += 0.05
-        music.volume = vol
-    }else{
-        clearInterval(fade)
-    }
+
+if(vol < 1){
+vol += 0.05
+music.volume = vol
+}else{
+clearInterval(fade)
+}
+
 },200)
 
 const text = document.getElementById("text")
 
 text.innerText =
-"Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai, một người đồng hành , một người bên cạnh cậu , quan tâm cậu  để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!! i luv youuuu❤️❤️❤️!!!"
+"Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai, một người đồng hành , một người bên cạnh cậu , quan tâm cậu để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!! I luv youuuu ❤️❤️❤️!!!"
 
 text.classList.add("slideText")
 
 yes.style.display="none"
 no.style.display="none"
-
 
 /* tim bung */
 
@@ -223,31 +209,29 @@ heart.remove()
 
 }
 
-
-}
-
-
 /* NO */
 
 no.onclick=function(){
 
 noCount++
 
-/* đổi text sau 3 lần */
+/* đổi text */
 
 if(noCount>=3){
 let i=Math.min(noCount-3,noTexts.length-1)
 no.innerText=noTexts[i]
 }
 
-/* rung màn hình */
+/* rung */
 
 if(noCount>=5){
+
 document.body.classList.add("shake")
 
 setTimeout(()=>{
 document.body.classList.remove("shake")
 },500)
+
 }
 
 /* nhỏ dần */
@@ -261,6 +245,7 @@ scale=0.15
 }
 
 no.style.transform="scale("+scale+")"
+
 }
 
 /* biến mất */
@@ -269,7 +254,7 @@ if(noCount>=11){
 no.style.display="none"
 }
 
-/* di chuyển nhưng vẫn nằm trong màn hình */
+/* chạy */
 
 const buttonWidth = no.offsetWidth
 const buttonHeight = no.offsetHeight
@@ -288,18 +273,7 @@ yes.style.transform="scale("+size+")"
 
 }
 
-
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
