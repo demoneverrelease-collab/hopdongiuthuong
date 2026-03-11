@@ -8,9 +8,7 @@
 
 <style>
 
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 body{
 margin:0;
@@ -68,18 +66,25 @@ animation:yesGlow 2s infinite alternate;
 background:#d9d9d9;
 }
 
-/* YES GLOW */
-
 @keyframes yesGlow{
 0%{box-shadow:0 0 10px #ff4d6d;}
 100%{box-shadow:0 0 25px #ff4d6d;}
 }
 
-/* HEART */
+/* HEART RISE */
 
-@keyframes heartFly{
-0%{transform:translateY(0) scale(1);opacity:1;}
-100%{transform:translateY(-130vh) scale(1.8);opacity:0;}
+@keyframes heartRise{
+0%{transform:translateY(40vh) scale(0.8);opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(-80vh) scale(1.2);opacity:0;}
+}
+
+/* HEART FLOAT */
+
+@keyframes heartFloat{
+0%{opacity:0.3;transform:scale(0.9);}
+50%{opacity:1;transform:scale(1.1);}
+100%{opacity:0.3;transform:scale(0.9);}
 }
 
 /* SHAKE */
@@ -92,9 +97,7 @@ background:#d9d9d9;
 100%{transform:translate(0)}
 }
 
-.shake{
-animation:shake 0.5s;
-}
+.shake{animation:shake 0.5s;}
 
 /* STARS */
 
@@ -102,6 +105,7 @@ animation:shake 0.5s;
 position:fixed;
 animation:twinkle 2s infinite alternate;
 pointer-events:none;
+transition:transform 0.2s linear;
 }
 
 @keyframes twinkle{
@@ -145,14 +149,6 @@ animation:popupShow 0.4s ease;
 100%{opacity:1;transform:translate(-50%,0);}
 }
 
-@media(max-width:500px){
-
-h1{
-font-size:22px;
-}
-
-}
-
 </style>
 
 </head>
@@ -182,27 +178,24 @@ let i=0
 const text=document.getElementById("text")
 
 function typing(){
-
 if(i<message.length){
 text.innerHTML+=message.charAt(i)
 i++
 setTimeout(typing,50)
 }
-
 }
-
 typing()
 
 /* STARS */
 
 const icons=["⭐","✨","💫","🌟","🧸","💗","🌸"]
+let stars=[]
 
-for(let i=0;i<30;i++){
+for(let i=0;i<35;i++){
 
 const star=document.createElement("div")
 
 star.innerHTML=icons[Math.floor(Math.random()*icons.length)]
-
 star.className="star"
 
 star.style.left=Math.random()*100+"vw"
@@ -211,7 +204,35 @@ star.style.fontSize=(Math.random()*20+16)+"px"
 
 document.body.appendChild(star)
 
+stars.push(star)
+
 }
+
+/* PARALLAX */
+
+document.addEventListener("mousemove",(e)=>{
+
+let x=(e.clientX/window.innerWidth-0.5)*20
+let y=(e.clientY/window.innerHeight-0.5)*20
+
+stars.forEach(star=>{
+star.style.transform=`translate(${x}px,${y}px)`
+})
+
+})
+
+document.addEventListener("touchmove",(e)=>{
+
+let touch=e.touches[0]
+
+let x=(touch.clientX/window.innerWidth-0.5)*20
+let y=(touch.clientY/window.innerHeight-0.5)*20
+
+stars.forEach(star=>{
+star.style.transform=`translate(${x}px,${y}px)`
+})
+
+})
 
 /* FLOWERS */
 
@@ -220,7 +241,6 @@ setInterval(()=>{
 const flower=document.createElement("div")
 
 flower.innerHTML="🌸"
-
 flower.className="flower"
 
 flower.style.left=Math.random()*100+"vw"
@@ -266,32 +286,28 @@ music.play()
 let vol=0
 
 let fade=setInterval(()=>{
-
 if(vol<1){
 vol+=0.05
 music.volume=vol
 }else{
 clearInterval(fade)
 }
-
 },200)
 
 /* TYPING LOVE MESSAGE */
 
-const yesMessage=" Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai để dựa, một người đồng hành , một người bên cạnh cậu , quan tâm cậu để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!!  I luv youuuu ❤️❤️❤️!!!"
+const yesMessage=" Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai để dựa, một người đồng hành , một người bên cạnh cậu , quan tâm cậu để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!! I luv youuuu ❤️❤️❤️!!!"
 
 text.innerHTML=""
 
 let j=0
 
 function typingYes(){
-
 if(j<yesMessage.length){
 text.innerHTML+=yesMessage.charAt(j)
 j++
 setTimeout(typingYes,120)
 }
-
 }
 
 typingYes()
@@ -299,45 +315,57 @@ typingYes()
 yes.style.display="none"
 no.style.display="none"
 
-/* HEARTS */
+/* HEART LOOP */
 
-for(let i=0;i<120;i++){
+function heartLoop(){
+
+for(let i=0;i<25;i++){
 
 const heart=document.createElement("div")
 
 heart.innerHTML="💖"
-
 heart.style.position="fixed"
+heart.style.left=Math.random()*100+"vw"
+heart.style.bottom="-20px"
+heart.style.fontSize=(Math.random()*24+18)+"px"
 
-/* tim xuất phát từ nút YES */
+let duration=Math.random()*4+6
 
-const rect = yes.getBoundingClientRect()
-
-heart.style.left = rect.left + rect.width/2 + "px"
-heart.style.top = rect.top + rect.height/2 + "px"
-
-heart.style.fontSize=(Math.random()*28+18)+"px"
-
-/* hướng bay ngẫu nhiên */
-
-let x=(Math.random()-0.5)*600
-let y=(Math.random()-0.5)*600
-
-heart.style.transform="translate("+x+"px,"+y+"px)"
-
-heart.style.transition="transform 4s ease-out, opacity 4s"
+heart.style.animation="heartRise "+duration+"s ease-out"
 
 document.body.appendChild(heart)
 
-setTimeout(()=>{
-heart.style.opacity=0
-},100)
-
-setTimeout(()=>{
-heart.remove()
-},4000)
+setTimeout(()=>heart.remove(),duration*1000)
 
 }
+
+for(let i=0;i<15;i++){
+
+const heart=document.createElement("div")
+
+heart.innerHTML="💗"
+
+heart.style.position="fixed"
+heart.style.left=Math.random()*100+"vw"
+heart.style.top=Math.random()*100+"vh"
+
+heart.style.fontSize=(Math.random()*20+16)+"px"
+
+heart.style.animation="heartFloat 3s infinite"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>heart.remove(),6000)
+
+}
+
+}
+
+heartLoop()
+
+setInterval(()=>{
+heartLoop()
+},5000)
 
 }
 
@@ -401,9 +429,3 @@ yes.style.transform="scale("+size+")"
 
 </body>
 </html>
-
-
-
-
-
-
