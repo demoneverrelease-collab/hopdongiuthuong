@@ -71,6 +71,20 @@ background:#d9d9d9;
 100%{box-shadow:0 0 25px #ff4d6d;}
 }
 
+/* HEARTBEAT */
+
+@keyframes heartbeat{
+0%{transform:scale(1);}
+25%{transform:scale(1.1);}
+40%{transform:scale(0.95);}
+60%{transform:scale(1.12);}
+100%{transform:scale(1);}
+}
+
+.heartbeat{
+animation:heartbeat 0.8s infinite;
+}
+
 /* HEART RISE */
 
 @keyframes heartRise{
@@ -142,6 +156,7 @@ font-size:18px;
 z-index:10;
 display:none;
 animation:popupShow 0.4s ease;
+pointer-events:none;
 }
 
 @keyframes popupShow{
@@ -294,8 +309,6 @@ clearInterval(fade)
 }
 },200)
 
-/* TYPING LOVE MESSAGE */
-
 const yesMessage=" Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai để dựa, một người đồng hành , một người bên cạnh cậu , quan tâm cậu để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!! I luv youuuu ❤️❤️❤️!!!"
 
 text.innerHTML=""
@@ -315,58 +328,6 @@ typingYes()
 yes.style.display="none"
 no.style.display="none"
 
-/* HEART LOOP */
-
-function heartLoop(){
-
-for(let i=0;i<25;i++){
-
-const heart=document.createElement("div")
-
-heart.innerHTML="💖"
-heart.style.position="fixed"
-heart.style.left=Math.random()*100+"vw"
-heart.style.bottom="-20px"
-heart.style.fontSize=(Math.random()*24+18)+"px"
-
-let duration=Math.random()*4+6
-
-heart.style.animation="heartRise "+duration+"s ease-out"
-
-document.body.appendChild(heart)
-
-setTimeout(()=>heart.remove(),duration*1000)
-
-}
-
-for(let i=0;i<15;i++){
-
-const heart=document.createElement("div")
-
-heart.innerHTML="💗"
-
-heart.style.position="fixed"
-heart.style.left=Math.random()*100+"vw"
-heart.style.top=Math.random()*100+"vh"
-
-heart.style.fontSize=(Math.random()*20+16)+"px"
-
-heart.style.animation="heartFloat 3s infinite"
-
-document.body.appendChild(heart)
-
-setTimeout(()=>heart.remove(),6000)
-
-}
-
-}
-
-heartLoop()
-
-setInterval(()=>{
-heartLoop()
-},5000)
-
 }
 
 /* NO CLICK */
@@ -375,8 +336,24 @@ no.onclick=function(){
 
 noCount++
 
+/* popup */
+
 if(noCount==5){
-document.getElementById("popup").style.display="block"
+
+let popup=document.getElementById("popup")
+
+popup.style.display="block"
+
+setTimeout(()=>{
+popup.style.display="none"
+},4000)
+
+}
+
+/* yes heartbeat */
+
+if(noCount>=6){
+yes.classList.add("heartbeat")
 }
 
 if(noCount>=3){
