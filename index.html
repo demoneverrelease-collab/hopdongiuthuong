@@ -75,7 +75,7 @@ background:#d9d9d9;
 100%{box-shadow:0 0 25px #ff4d6d;}
 }
 
-/* HEART FLY */
+/* HEART */
 
 @keyframes heartFly{
 0%{transform:translateY(0) scale(1);opacity:1;}
@@ -127,16 +127,22 @@ pointer-events:none;
 
 .popup{
 position:fixed;
-top:50%;
+bottom:60px;
 left:50%;
-transform:translate(-50%,-50%);
+transform:translateX(-50%);
 background:white;
-padding:30px;
-border-radius:18px;
-box-shadow:0 15px 40px rgba(0,0,0,0.25);
-font-size:20px;
+padding:18px 24px;
+border-radius:16px;
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
+font-size:18px;
 z-index:10;
 display:none;
+animation:popupShow 0.4s ease;
+}
+
+@keyframes popupShow{
+0%{opacity:0;transform:translate(-50%,20px);}
+100%{opacity:1;transform:translate(-50%,0);}
 }
 
 @media(max-width:500px){
@@ -168,7 +174,7 @@ font-size:22px;
 
 <script>
 
-/* TYPING */
+/* TYPING QUESTION */
 
 const message="Miee à cậu đồng ý làm người yêu tớ nhé ?"
 
@@ -218,9 +224,7 @@ flower.innerHTML="🌸"
 flower.className="flower"
 
 flower.style.left=Math.random()*100+"vw"
-
 flower.style.fontSize=(Math.random()*16+14)+"px"
-
 flower.style.animationDuration=(Math.random()*5+5)+"s"
 
 document.body.appendChild(flower)
@@ -249,9 +253,9 @@ const noTexts=[
 "Cơ hội cuối đó!"
 ]
 
-yes.onclick=function(){
+/* YES CLICK */
 
-document.getElementById("popup").style.display="block"
+yes.onclick=function(){
 
 const music=document.getElementById("music")
 
@@ -272,7 +276,25 @@ clearInterval(fade)
 
 },200)
 
-text.innerText="Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai, một người đồng hành , một người bên cạnh cậu , quan tâm cậu để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!! I luv youuuu ❤️❤️❤️!!!"
+/* TYPING LOVE MESSAGE */
+
+const yesMessage="Yayyy ❤️ Tớ biết mà!!! Từ giờ cậu là em bé của tớ rồi! Tớ sẽ trở thành anh iu đẹp trai, thông minh 6 múi , tinh tế, một bờ vai để dựa, một người đồng hành , một người bên cạnh cậu , quan tâm cậu để cậu trở thành em bé hạnh phúc nhất cái quả địa cầu này!! I luv youuuu ❤️❤️❤️!!!"
+
+text.innerHTML=""
+
+let j=0
+
+function typingYes(){
+
+if(j<yesMessage.length){
+text.innerHTML+=yesMessage.charAt(j)
+j++
+setTimeout(typingYes,40)
+}
+
+}
+
+typingYes()
 
 yes.style.display="none"
 no.style.display="none"
@@ -300,9 +322,15 @@ setTimeout(()=>heart.remove(),4000)
 
 }
 
+/* NO CLICK */
+
 no.onclick=function(){
 
 noCount++
+
+if(noCount==5){
+document.getElementById("popup").style.display="block"
+}
 
 if(noCount>=3){
 let index=Math.min(noCount-3,noTexts.length-1)
